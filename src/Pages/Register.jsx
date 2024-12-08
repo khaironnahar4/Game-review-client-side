@@ -18,11 +18,30 @@ function Register() {
         const password = form.password.value;
         const photoUrl = form.photoURL.value
         // console.log(name, email, password, photoUrl);
+        
 
         register(email, password)
         .then(userCredintial =>{
           const newUser = userCredintial.user;
+
+          const createdAt = newUser?.metadata?.creationTime
+          const userData = {name, email, createdAt};
+
+          // send newUser to database
+          fetch("https://game-reviewer-server-side.vercel.app/users", {
+            method: 'POST',
+            headers: {
+              'content-type' : 'application/json',
+            },
+            body: JSON.stringify(userData)
+          })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+            
+          })
          
+          // updated user
           UpdateProfile(newUser,{
             displayName: name,
             photoURL: photoUrl
