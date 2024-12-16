@@ -1,28 +1,70 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Auth/AuthProvider";
+import { ThemeContext } from "../utils/ThemeProvider";
 
 function Navbar() {
   const { user, logout } = useContext(AuthContext);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   const navLinks = (
     <>
       <li>
-        <Link to={"/"}>Home</Link>
+        <Link
+          to={"/"}
+          className={`${({ isActive }) =>
+            isActive
+              ? "text-black font-bold dark:text-gray-100 dark:border-gray-100"
+              : "text-gray-800 dark:text-gray-400"}`}
+        >
+          Home
+        </Link>
       </li>
       <li>
-        <Link to={"/all-reviews"}>All Reviews</Link>
+        <Link
+          to={"/all-reviews"}
+          className={`${({ isActive }) =>
+            isActive
+              ? "text-black font-bold dark:text-gray-100 dark:border-gray-100"
+              : "text-gray-800 dark:text-gray-400"}`}
+        >
+          All Reviews
+        </Link>
       </li>
       {user && user.email && (
         <>
           <li>
-            <Link to={"/add-review"}>Add Review</Link>
+            <Link
+              to={"/add-review"}
+              className={`${({ isActive }) =>
+                isActive
+                  ? "text-black font-bold dark:text-gray-100 dark:border-gray-100"
+                  : "text-gray-800 dark:text-gray-400"}`}
+            >
+              Add Review
+            </Link>
           </li>
           <li>
-            <Link to={"/my-review"}>My Review</Link>
+            <Link
+              to={`/my-reviews/${user.email}`}
+              className={`${({ isActive }) =>
+                isActive
+                  ? "text-black font-bold dark:text-gray-100 dark:border-gray-100"
+                  : "text-gray-800 dark:text-gray-400"}`}
+            >
+              My Review
+            </Link>
           </li>
           <li>
-            <Link>Game Watchlist</Link>
+            <Link
+              to={`/watchlist/${user.email}`}
+              className={`${({ isActive }) =>
+                isActive
+                  ? "text-black font-bold dark:text-gray-100 dark:border-gray-100"
+                  : "text-gray-800 dark:text-gray-400"}`}
+            >
+              Game Watchlist
+            </Link>
           </li>
         </>
       )}
@@ -30,7 +72,7 @@ function Navbar() {
   );
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 dark:bg-gray-800 dark:text-gray-200">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -56,10 +98,17 @@ function Navbar() {
             {navLinks}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">Game Review</a>
+        <a className="btn btn-ghost text-xl">GameVerse</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{navLinks}</ul>
+        <ul
+          className={`menu menu-horizontal px-1 
+          ${({ isActive }) =>
+            isActive &
+            "text-black font-bold dark:text-gray-100 dark:border-gray-100"}`}
+        >
+          {navLinks}
+        </ul>
       </div>
       <div className="navbar-end">
         {user && user?.email ? (
@@ -78,20 +127,35 @@ function Navbar() {
                 </div>
               </div>
             </div>
-            <button onClick={logout} className="btn ms-4">
+            <button
+              onClick={logout}
+              className="btn ms-4 dark:bg-gray-800 dark:text-gray-200"
+            >
               Logout
             </button>
           </>
         ) : (
           <>
-            <Link to={"/login"} className="btn">
+            <Link
+              to={"/login"}
+              className="btn dark:bg-gray-800 dark:text-gray-200"
+            >
               Login
             </Link>
-            <Link to={"/register"} className="btn ms-4">
+            <Link
+              to={"/register"}
+              className="btn ms-4 dark:bg-gray-800 dark:text-gray-200"
+            >
               Register
             </Link>
           </>
         )}
+        <button
+          onClick={() => setTheme(!theme)}
+          className="btn ms-4 rounded bg-gray-800 text-white dark:bg-gray-200 dark:text-black"
+        >
+          {theme ? "Light" : "Dark"} Mode
+        </button>
       </div>
     </div>
   );

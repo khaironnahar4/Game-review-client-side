@@ -1,11 +1,17 @@
-import { useContext } from "react";
-import { AuthContext } from "../Auth/AuthProvider";
+// import { useContext } from "react";
+// import { AuthContext } from "../Auth/AuthProvider";
+
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-function AddReviews() {
-  const { user } = useContext(AuthContext);
+function UpdateReview() {
+    // const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const review = useLoaderData();
+    const {_id, cover, title, description, rating, publishingYear, genre, userName, email} = review;
 
   const genres = ["Action", "RPG", "Adventure", "Sports", "Strategy"];
+
 
   const handleForm = (event) => {
     event.preventDefault();
@@ -17,8 +23,8 @@ function AddReviews() {
     const rating = form.rating.value;
     const publishingYear = form.publishingYear.value;
     const genre = form.genre.value;
-    const userName = user.displayName;
-    const email = user.email;
+    // const userName = user.displayName;
+    // const email = user.email;
 
     const reviewData = {
       cover,
@@ -30,10 +36,10 @@ function AddReviews() {
       userName,
       email,
     };
-    console.log(reviewData);
+    // console.log(reviewData);
 
-    fetch("https://gameverse-server-side.vercel.app/reviews", {
-      method: "POST",
+    fetch(`https://gameverse-server-side.vercel.app/reviews/${_id}`, {
+      method: "PUT",
       headers: {
         "content-type": "application/json",
       },
@@ -41,19 +47,20 @@ function AddReviews() {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         // alert("review uploaded");
-        if(data.acknowledged){
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Your Review Uploaded",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }
+        if(data.modifiedCount>0){
+            Swal.fire({
+                title: "Updated!",
+                text: "Your file has been updated successfully.",
+                icon: "success"
+              }).then(()=>{
+                navigate(`/my-reviews/${email}`);
+              });
+        }
       });
   };
+
 
   return (
     <form
@@ -69,8 +76,9 @@ function AddReviews() {
         <input
           type="text"
           name="gameCover"
+          defaultValue={cover}
           placeholder="Enter game cover URL"
-          className="input dark:bg-gray-800 input-bordered w-full"
+          className="input input-bordered w-full"
           required
         />
       </div>
@@ -81,8 +89,9 @@ function AddReviews() {
         <input
           type="text"
           name="gameTitle"
+          defaultValue={title}
           placeholder="Enter game title"
-          className="input input-bordered dark:bg-gray-800 w-full"
+          className="input input-bordered w-full"
           required
         />
       </div>
@@ -92,8 +101,9 @@ function AddReviews() {
         <label className="label font-semibold">Review Description</label>
         <textarea
           name="reviewDescription"
+          defaultValue={description}
           placeholder="Write your detailed review"
-          className="textarea textarea-bordered dark:bg-gray-800 w-full"
+          className="textarea textarea-bordered w-full"
           rows="4"
           required
         ></textarea>
@@ -105,10 +115,11 @@ function AddReviews() {
         <input
           type="number"
           name="rating"
+          defaultValue={rating}
           placeholder="Enter rating (1-10)"
           min="1"
           max="10"
-          className="input input-bordered dark:bg-gray-800 w-full"
+          className="input input-bordered w-full"
           required
         />
       </div>
@@ -119,8 +130,9 @@ function AddReviews() {
         <input
           type="number"
           name="publishingYear"
+          defaultValue={publishingYear}
           placeholder="e.g., 2024"
-          className="input input-bordered dark:bg-gray-800 w-full"
+          className="input input-bordered w-full"
           required
         />
       </div>
@@ -128,8 +140,8 @@ function AddReviews() {
       {/* Genres */}
       <div className="form-control">
         <label className="label font-semibold">Genre</label>
-        <select name="genre" className="select select-bordered dark:bg-gray-800 w-full" required>
-          <option value="" disabled>
+        <select name="genre" defaultValue={genre} className="select select-bordered w-full" required>
+          <option value=" " disabled>
             Select a genre
           </option>
           {genres.map((genre, index) => (
@@ -145,9 +157,9 @@ function AddReviews() {
         <label className="label font-semibold">User Email</label>
         <input
           type="email"
-          value={user.email}
+          value={email}
           readOnly
-          className="input input-bordered w-full bg-gray-200 dark:bg-gray-800 cursor-not-allowed"
+          className="input input-bordered w-full bg-gray-200 cursor-not-allowed"
         />
       </div>
 
@@ -156,20 +168,20 @@ function AddReviews() {
         <label className="label font-semibold">User Name</label>
         <input
           type="text"
-          value={user.displayName}
+          value={userName}
           readOnly
-          className="input input-bordered w-full bg-gray-200 dark:bg-gray-800 cursor-not-allowed"
+          className="input input-bordered w-full bg-gray-200 cursor-not-allowed"
         />
       </div>
 
       {/* Submit Button */}
       <div className="form-control">
         <button type="submit" className="btn btn-primary w-full">
-          Submit Review
+          Update Review
         </button>
       </div>
     </form>
-  );
+  )
 }
 
-export default AddReviews;
+export default UpdateReview

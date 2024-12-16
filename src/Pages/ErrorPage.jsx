@@ -2,7 +2,11 @@
 
 function ErrorPage() {
   return (
-    <div>ErrorPage</div>
+    <div>
+      <h1 className="text-4xl text-center font-bold flex items-center justify-center h-screen">
+      Page Not Pound
+      </h1>
+      </div>
   )
 }
 

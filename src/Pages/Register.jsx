@@ -28,7 +28,7 @@ function Register() {
           const userData = {name, email, createdAt};
 
           // send newUser to database
-          fetch("https://game-reviewer-server-side.vercel.app/users", {
+          fetch("https://gameverse-server-side.vercel.app/users", {
             method: 'POST',
             headers: {
               'content-type' : 'application/json',
@@ -61,58 +61,58 @@ function Register() {
       };
 
   return (
-    <div className="card bg-base-100 w-full mx-auto mt-16 max-w-sm shrink-0 shadow-2xl">
+    <div className="card bg-base-100 dark:bg-gray-700 w-full mx-auto mt-16 max-w-sm shrink-0 shadow-2xl">
     <form onSubmit={handleForm} className="card-body">
       <h1 className="text-2xl font-bold text-center">Register Now!</h1>
 
       <div className="form-control">
         <label className="label">
-          <span className="label-text">Name</span>
+          <span className="label-text dark:text-gray-200">Name</span>
         </label>
         <input
           name="name"
           type="text"
           placeholder="Name"
-          className="input input-bordered"
+          className="input input-bordered dark:bg-gray-800"
           required
         />
       </div>
 
       <div className="form-control">
         <label className="label">
-          <span className="label-text">Email</span>
+          <span className="label-text dark:text-gray-200">Email</span>
         </label>
         <input
           name="email"
           type="email"
           placeholder="email"
-          className="input input-bordered"
+          className="input input-bordered dark:bg-gray-800"
           required
         />
       </div>
 
       <div className="form-control">
         <label className="label">
-          <span className="label-text">Photo URL</span>
+          <span className="label-text dark:text-gray-200">Photo URL</span>
         </label>
         <input
           name="photoURL"
           type="text"
           placeholder="photo URL"
-          className="input input-bordered"
+          className="input input-bordered dark:bg-gray-800"
           required
         />
       </div>
 
       <div className="form-control">
         <label className="label">
-          <span className="label-text">Password</span>
+          <span className="label-text dark:text-gray-200">Password</span>
         </label>
         <input
           name="password"
           type="password"
           placeholder="password"
-          className="input input-bordered"
+          className="input input-bordered dark:bg-gray-800"
           required
         />
        
@@ -123,9 +123,9 @@ function Register() {
       <div>
         <button onClick={signInWithGoogle}
         className="flex items-center justify-center gap-2 px-4 py-2 w-full
-        bg-white border border-gray-300 rounded-md shadow hover:border-gray-500 transition duration-300">
+        bg-white border border-gray-300 dark:border-gray-600 rounded-md shadow hover:border-gray-500 transition duration-300 dark:bg-gray-800">
           <FcGoogle size={20} />
-          <span className="text-gray-600 font-medium">
+          <span className="text-gray-600 font-medium dark:text-gray-200">
             Sign in with Google
           </span>
         </button>

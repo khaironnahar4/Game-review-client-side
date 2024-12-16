@@ -4,7 +4,9 @@ import { Navigate } from "react-router-dom"
 
 
 function PrivateRoute({children}) {
-    const {user} = useContext(AuthContext);
+    const {user, loader} = useContext(AuthContext);
+
+    if(loader) return <p>Loading...</p>
 
     if(user && user?.email) return children;
 

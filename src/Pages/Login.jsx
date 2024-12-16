@@ -39,34 +39,34 @@ function Login() {
   // }
 
   return (
-    <div className="card bg-base-100 w-full mx-auto mt-16 max-w-sm shrink-0 shadow-2xl">
+    <div className="card bg-base-100 dark:bg-gray-700 dark:text-gray-200 w-full mx-auto mt-16 max-w-sm shrink-0 shadow-2xl">
       <form onSubmit={handleForm} className="card-body">
         <h1 className="text-2xl font-bold text-center">Login Now!</h1>
         <div className="form-control">
           <label className="label">
-            <span className="label-text">Email</span>
+            <span className="label-text dark:text-gray-200">Email</span>
           </label>
           <input
             name="email"
             type="email"
             placeholder="email"
-            className="input input-bordered"
+            className="input input-bordered dark:bg-gray-800"
             required
           />
         </div>
         <div className="form-control">
           <label className="label">
-            <span className="label-text">Password</span>
+            <span className="label-text dark:text-gray-200">Password</span>
           </label>
           <input
             name="password"
             type="password"
             placeholder="password"
-            className="input input-bordered"
+            className="input input-bordered dark:bg-gray-800"
             required
           />
           <label className="label">
-            <a href="#" className="label-text-alt link link-hover">
+            <a href="#" className="label-text-alt link link-hover dark:text-gray-300">
               Forgot password?
             </a>
           </label>
@@ -77,9 +77,9 @@ function Login() {
         <div>
           <button onClick={signInWithGoogle}
           className="flex items-center justify-center gap-2 px-4 py-2 w-full
-          bg-white border border-gray-300 rounded-md shadow hover:border-gray-500 transition duration-300">
+          border border-gray-300 rounded-md shadow hover:border-gray-500 transition duration-300">
             <FcGoogle size={20} />
-            <span className="text-gray-600 font-medium">
+            <span className="text-gray-600 dark:text-gray-200 font-medium">
               Sign in with Google
             </span>
           </button>
