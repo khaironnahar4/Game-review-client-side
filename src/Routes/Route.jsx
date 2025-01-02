@@ -46,7 +46,7 @@ const router = createBrowserRouter([
           path: 'my-reviews/:email',
           element: <PrivateRoute><MyReviews></MyReviews></PrivateRoute>,
           loader: ({params})=> fetch(`https://gameverse-server-side.vercel.app/reviews/user/${params.email}`),
-          // https://gameverse-server-side.vercel.app
+          // 
         },
         {
           path: 'login',
