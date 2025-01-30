@@ -2,7 +2,7 @@
 
 GameVerse is a comprehensive game review website built with modern web technologies. Users can explore game reviews, share their thoughts, and manage personalized features like watchlists. The platform includes secure authentication, private routes, and dynamic functionalities for a seamless user experience.
 
-## Live site link: https://game-review-c03f4.web.app/
+## Live site link: https://game-review-c03f4.web.app/](https://lighthearted-kleicha-b231cd.netlify.app
 ## Server site link: https://gameverse-server-side.vercel.app/
 
 ## Features
